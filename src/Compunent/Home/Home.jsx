@@ -10,7 +10,7 @@ const Home = () => {
             <section className="">
                <div className='grid grid-cols-12 bg-[#d6e9e7] gap-9'>
                 {/* sidebar  */}
-				<div className='col-span-3'>
+				<div className='col-span-3 sticky'>
                 <Sidebar></Sidebar>
 				
 				</div>
