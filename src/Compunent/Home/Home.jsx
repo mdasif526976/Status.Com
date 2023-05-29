@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Card from '../Card/Card';
 import Aside from '../Aside/Aside';
 import PostCard from '../PostCard/PostCard';
+import { UserContext } from '../Authprovider/Authprovider';
 
 const Home = () => {
+	const {a} = useContext(UserContext)
+	console.log(a)
     return (
         <div>
             <section className="">
