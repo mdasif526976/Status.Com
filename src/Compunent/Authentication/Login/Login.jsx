@@ -20,13 +20,13 @@ const Login = () => {
             const user = result.user;
             setUser(user)
             navigate('/')
-        })
+        }).catch(err=>console.log(err))
 
     }
     return (
         <div className='bg-[#8ad0c9] flex justify-center items-center h-screen'>
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-white">
-	<h1 className="text-2xl font-bold text-center">Login</h1>
+	<h1 className="text-2xl font-bold text-center">Login Now</h1>
 	<form onSubmit={handleSubmit} className="space-y-6 ng-untouched ng-pristine ng-valid">
 		<div className="space-y-1 text-sm ">
             <p className=' border border-b-1 border-gray-800 mb-4'/>
