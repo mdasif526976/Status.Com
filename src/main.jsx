@@ -4,11 +4,13 @@ import App from './App'
 import './index.css'
 import { ThemeProvider } from '@material-tailwind/react'
 import Authprovider from './Compunent/Authprovider/Authprovider'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-   <Authprovider>
+    <Authprovider>
    <App />
    </Authprovider>
     </ThemeProvider>
