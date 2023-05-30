@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { UserContext } from '../../Authprovider/Authprovider';
 
 const Login = () => {
+    const {setUser,signInWithEmailPassword} = useContext(UserContext);
     const navigate = useNavigate();
-    const {user,setUser,signInWithEmailPassword,logOut} = useContext(UserContext);
+    const location = useLocation();
+     const from = location.state?.form?.pathname || '/';
     const handleSubmit=(event)=>{
         event.preventDefault();
         const form = event.target;
@@ -19,8 +21,9 @@ const Login = () => {
         .then((result)=>{
             const user = result.user;
             setUser(user)
-            navigate('/')
+            navigate(from,{replace:true})
         }).catch(err=>console.log(err))
+
 
     }
     return (

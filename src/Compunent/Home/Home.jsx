@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Card from '../Card/Card';
 import Aside from '../Aside/Aside';
@@ -6,8 +6,25 @@ import PostCard from '../PostCard/PostCard';
 import { UserContext } from '../Authprovider/Authprovider';
 
 const Home = () => {
-	const {a} = useContext(UserContext)
+	const {a} = useContext(UserContext);
+	const [refetch,setrefetch] = ('')
+	const [loading,setloding] = useState(false)
 	console.log(a)
+	const [data,setData] = useState('');
+	useEffect(()=>{
+		setloding(true)
+		fetch('http://localhost:4000/posts')
+		.then(res=>res.json())
+		.then (data=>{
+			setloding(false)
+			setData(data)
+		})
+	},[])
+	if (loading) {
+		return;
+	}
+	
+	console.log(data)
     return (
         <div>
             <section className="">
@@ -20,7 +37,15 @@ const Home = () => {
 		{/* post scetion */}
 				<div className='col-span-6  mr-[36px] mt-6'>
 					<PostCard></PostCard>
-			<Card></Card>
+			            <div>
+							{
+								// data.forEach(element => {
+								// 	<Card key={element._id} data={element}></Card>
+								// })
+								data &&
+								data?.map((post)=><Card refetch={refetch} setrefetch={setrefetch} data={post} key={post._id}></Card>)
+							}
+						</div>
 				</div>
 		{/* aside  */}
 				<div className='col-span-3 bg-white '>

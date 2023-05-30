@@ -3,14 +3,20 @@ import Main from './Layout/Main/Main'
 import Home from './Compunent/Home/Home'
 import Login from './Compunent/Authentication/Login/Login'
 import SignUp from './Compunent/Authentication/SignUp/SignUp'
+import PrivateRoute from './Compunent/PrivateRoute/PrivateRoute'
+import About from './About/About'
 const router = createBrowserRouter([
     {
       path:'/',
-      element:<Main></Main>,
+      element:<PrivateRoute><Main></Main></PrivateRoute>,
       children:[
         {
           path:'/',
           element:<Home></Home>
+        },
+        {
+          path:'/about',
+          element:<About/>
         },
        
       ]
