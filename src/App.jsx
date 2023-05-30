@@ -5,6 +5,7 @@ import Login from './Compunent/Authentication/Login/Login'
 import SignUp from './Compunent/Authentication/SignUp/SignUp'
 import PrivateRoute from './Compunent/PrivateRoute/PrivateRoute'
 import About from './About/About'
+import CardDetal from './Compunent/CardDetail/CardDetal'
 const router = createBrowserRouter([
     {
       path:'/',
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
         {
           path:'/about',
           element:<About/>
+        },
+        {
+          path:'/post/:id',
+          element:<CardDetal/>,
+          
         },
        
       ]

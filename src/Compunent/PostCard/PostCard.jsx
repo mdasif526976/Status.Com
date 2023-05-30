@@ -76,7 +76,7 @@ const PostCard = () => {
             <h1 className='text-2xl mb-2 font-semibold text-center'>Write a Post</h1>
             <hr />
            <form onSubmit={handleSubmit}>
-            <div className='w-[616px] px-6 my-4 '>
+            <div className='w-[100%] px-6 my-4 '>
            <textarea className='w-full py-[20px]  rounded border px-2
             border-blue-500 bg-transparent text-sm font-normal
              bg-gray-200' name='title' placeholder='create a post' type="text" />

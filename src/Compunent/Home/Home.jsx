@@ -28,14 +28,14 @@ const Home = () => {
     return (
         <div>
             <section className="">
-               <div className='grid grid-cols-12 bg-[#d6e9e7] gap-9'>
+               <div className='grid md:grid-cols-12 grid-cols-1 bg-[#d6e9e7] gap-9'>
                 {/* sidebar  */}
-				<div className='col-span-3 sticky'>
+				<div className='col-span-3 sticky hidden md:block'>
                 <Sidebar></Sidebar>
 				
 				</div>
 		{/* post scetion */}
-				<div className='col-span-6  mr-[36px] mt-6'>
+				<div className='col-span-6 mx-5 md:mr-[36px] mt-6'>
 					<PostCard></PostCard>
 			            <div className='flex flex-col gap-8'>
 							{

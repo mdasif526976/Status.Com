@@ -1,67 +1,70 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import { format } from 'date-fns';
+import React, { useEffect, useState } from 'react';
+import {  useParams } from 'react-router-dom';
 import Comment from '../Comment/Comment';
-import {  format, formatDistanceToNow, } from 'date-fns';
-import { Link } from 'react-router-dom';
 
-const Card = (props) => {
-	const {refetch,setrefetch} = props;
-	console.log(refetch)
-	 let {name,title,userImg,_id,email,date,like,postImg,comment} = props.data;
-	 const time = format(new Date(),'yyyy-MM-dd');
-	 console.log(time)
-	 const [commentId,setcommentId] = useState('')
-	 const [liked,setlike] = useState(false);
-	const [isOpen,setOpen] = useState(false);
-	const [likeCount,setCount] = useState(like)
-	const commentHide=()=>{
-		setOpen(!isOpen)
-	}
-	const likeBtn=(id)=>{
-		setCount(liked ? likeCount-1 : like+1)
-     setlike(!liked)
-	 const count = {likeCount : likeCount};
-	 fetch(`http://localhost:4000/like/${id}`,{
-		method:'PUT',
-		headers:{
-			 'Content-Type': 'application/json',
-		},
-		body:JSON.stringify(count)
-	}).then(res=>res.json())
-	.then(data=>{
-		if (data.acknowledged) {
-	  console.log(data)
-		}
-	  console.log(data)
-	}).catch(err=> console.log(err))
-	}
-	const handleComment = (event)=>{
-		event.preventDefault();
-         const form = event.target;
-		 const title = form.comment.value;
-		 const date = format(date)
-		 const commentDetail = {name:name,title:title,time:time,userImg:userImg,email:email};
-		 const newComment = [...comment,commentDetail];
-		 fetch(`http://localhost:4000/comment/${commentId}`,{
-                    method:'PUT',
-                    headers:{
-                         'Content-Type': 'application/json',
-                    },
-                    body:JSON.stringify(newComment)
-                }).then(res=>res.json())
-                .then(data=>{
-                    if (data.acknowledged) {
-                  toast.success('comment successfully !!')
-				  form.reset()
-                    }
-                  console.log(data)
-                }).catch(err=> console.log(err))
-	
-	}
-	const commentValue = (comment.length);
+const CardDetal = () => {
+    const [post,setData] = useState('')
+    const params = useParams();
+   useEffect(()=>{
+    fetch(`http://localhost:4000/post/${params.id}`)
+    .then(res=>res.json())
+    .then(data=> setData(data))
+   },[])
+    let {name,title,userImg,_id,email,date,like,postImg,comment} = post;
+    const time = format(new Date(),'yyyy-MM-dd');
+    const [commentId,setcommentId] = useState('')
+    const [liked,setlike] = useState(false);
+   const [isOpen,setOpen] = useState(false);
+   const [likeCount,setCount] = useState(like)
+   const commentHide=()=>{
+       setOpen(!isOpen)
+   }
+   const likeBtn=(id)=>{
+       setCount(liked ? likeCount-1 : like+1)
+    setlike(!liked)
+    const count = {likeCount : likeCount};
+    fetch(`http://localhost:4000/like/${id}`,{
+       method:'PUT',
+       headers:{
+            'Content-Type': 'application/json',
+       },
+       body:JSON.stringify(count)
+   }).then(res=>res.json())
+   .then(data=>{
+       if (data.acknowledged) {
+     console.log(data)
+       }
+     console.log(data)
+   }).catch(err=> console.log(err))
+   }
+   const handleComment = (event)=>{
+       event.preventDefault();
+        const form = event.target;
+        const title = form.comment.value;
+        const date = format(date)
+        const commentDetail = {name:name,title:title,time:time,userImg:userImg,email:email};
+        const newComment = [...comment,commentDetail];
+        fetch(`http://localhost:4000/comment/${commentId}`,{
+                   method:'PUT',
+                   headers:{
+                        'Content-Type': 'application/json',
+                   },
+                   body:JSON.stringify(newComment)
+               }).then(res=>res.json())
+               .then(data=>{
+                   if (data.acknowledged) {
+                 toast.success('comment successfully !!')
+                 form.reset()
+                   }
+                 console.log(data)
+               }).catch(err=> console.log(err))
+   
+   }
+   const commentValue = (comment?.length);
     return (
         <div>
-            <div className="flex flex-col h-92 p-6 space-y-6 
+             <div className="flex flex-col h-92 p-6 space-y-6 
             overflow-hidden rounded-lg shadow-md bg-white  text-gray-900">
 	<div className="flex space-x-4">
 		<img alt="" src="https://source.unsplash.com/100x100/?portrait" 
@@ -80,8 +83,11 @@ const Card = (props) => {
 	</div>
 	<div className="flex flex-wrap justify-between">
 		<div className="space-x-2">
-				<Link to={`/post/${_id}`}>See more</Link>
-			
+			<button aria-label="Share this post" type="button" className="p-2 text-center">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current text-violet-400">
+					<path d="M404,344a75.9,75.9,0,0,0-60.208,29.7L179.869,280.664a75.693,75.693,0,0,0,0-49.328L343.792,138.3a75.937,75.937,0,1,0-13.776-28.976L163.3,203.946a76,76,0,1,0,0,104.108l166.717,94.623A75.991,75.991,0,1,0,404,344Zm0-296a44,44,0,1,1-44,44A44.049,44.049,0,0,1,404,48ZM108,300a44,44,0,1,1,44-44A44.049,44.049,0,0,1,108,300ZM404,464a44,44,0,1,1,44-44A44.049,44.049,0,0,1,404,464Z"></path>
+				</svg>
+			</button>
 			<button aria-label="Bookmark this post" type="button" className="p-2">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current text-violet-400">
 					<path d="M424,496H388.75L256.008,381.19,123.467,496H88V16H424ZM120,48V456.667l135.992-117.8L392,456.5V48Z"></path>
@@ -110,10 +116,10 @@ const Card = (props) => {
 			</button>
 		</div>
 	</div>
-	<div className={!isOpen ? 'hidden delay-500' : 'block delay-500'}>
+	<div className={ 'block delay-500'}>
 	<div className=' justify-between flex'>
     <h1 className='text-xl px-2'>All comments</h1>
-    <button onClick={commentHide} className='text-2xl text-blue-500 pr-2'>X</button>
+    
 	</div>
 		<div >
             <form onSubmit={handleComment} className='flex justify-around gap-2 my-2'>
@@ -124,9 +130,9 @@ const Card = (props) => {
 			 type='submit'>Submit</button>
 			</form>
 			<div className='flex flex-col gap-3'>
-				{comment &&
+				{ comment &&
 					comment?.map((data)=> <Comment data={data} key={data._id}/>)
-				}
+                }
 			</div>
 		</div>
 
@@ -136,4 +142,4 @@ const Card = (props) => {
     );
 };
 
-export default Card;
+export default CardDetal;
