@@ -37,7 +37,7 @@ const Home = () => {
 		{/* post scetion */}
 				<div className='col-span-6  mr-[36px] mt-6'>
 					<PostCard></PostCard>
-			            <div>
+			            <div className='flex flex-col gap-8'>
 							{
 								// data.forEach(element => {
 								// 	<Card key={element._id} data={element}></Card>

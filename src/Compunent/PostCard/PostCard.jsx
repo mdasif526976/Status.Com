@@ -33,8 +33,8 @@ const PostCard = () => {
                 }).then(res=>res.json())
                 .then(data=>{
                     if (data.acknowledged) {
+                      form.reset()
                   toast.success('Post successfully !!')
-                        
                     }
                   console.log(data)
                 }).catch(err=> console.log(err))

@@ -6,9 +6,12 @@ import { Button } from '@material-tailwind/react';
 
 const Main = () => {
     return (
-        <div className='w-full h-full'>
+        <div className='w-full h-full bg-[#d6e9e7] '>
            <Navbar/>
+           <div className='mb-8'>
            <Outlet/>
+           </div>
+           <Footer></Footer>
         </div>
     );
 };
