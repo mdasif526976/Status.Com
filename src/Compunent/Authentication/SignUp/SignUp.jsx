@@ -26,6 +26,7 @@ const SignUp = () => {
             setUser(user)
             updateUser(name,imgUrl)
             console.log(user)
+            storeuser(email,imgUrl,name)
             setLoader(false)
             // navigate('/')
             toast.success('Sign up Successfully')
@@ -35,7 +36,9 @@ const SignUp = () => {
             console.log(err)
             setLoader(false)
         })
-        
+        const storeuser=(email,img,name)=>{
+          
+        }
 
     }
     return (

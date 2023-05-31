@@ -5,7 +5,8 @@ import { Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-	const {logOut} = useContext(UserContext);
+	const {user,logOut} = useContext(UserContext);
+  const {displayName,photoURL} = user;
 	return (
 	    <div>
 			<div>
@@ -20,8 +21,8 @@ const Navbar = () => {
 			<div className='flex gap-3 justify-left'>
 				<div className='flex gap-3 items-center'>
                    <img className='w-14 h-14 rounded' 
-				   src="https://source.unsplash.com/100x100/?portrait" alt="" />
-				   <p className=' font-bold font-body'>@Larry Page</p>
+				   src={photoURL} alt="" />
+				   <p className=' text-orange-400 font-bold font-body'>{displayName}</p>
 				</div>
 				<button className='w-14 h-14 rounded bg-white pl-[11px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
