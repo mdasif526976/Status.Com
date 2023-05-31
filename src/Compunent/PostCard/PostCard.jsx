@@ -3,7 +3,7 @@ import { UserContext } from '../Authprovider/Authprovider';
 import { format, formatDistanceToNow, formatRelative, subDays } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
 
-const PostCard = () => {
+const PostCard = ({refetch}) => {
     const {user} = useContext(UserContext);
     const time = new Date ();
   
@@ -24,7 +24,7 @@ const PostCard = () => {
         const title = form.title.value;
         if (!postImage) {
             const newPost = {name:name,email:user.email,date:date,title:title,comment:[]};
-            fetch('http://localhost:4000/post',{
+            fetch('https://status-bay-three.vercel.app/post',{
                     method:'POST',
                     headers:{
                          'Content-Type': 'application/json',
@@ -33,11 +33,13 @@ const PostCard = () => {
                 }).then(res=>res.json())
                 .then(data=>{
                     if (data.acknowledged) {
-                      form.reset()
+                      refetch()
                   toast.success('Post successfully !!')
                     }
                   console.log(data)
                 }).catch(err=> console.log(err))
+                form.reset()
+
             return
             
         }
@@ -53,7 +55,7 @@ const PostCard = () => {
         if(imgData.success){
             const newPost = {name:name,userImg:userImg,email:user.email,title:title,date:date,like:0,
                 postImg:imgData.data.url,comment:[]}
-                fetch('http://localhost:4000/post',{
+                fetch('https://status-bay-three.vercel.app/post',{
                     method:'POST',
                     headers:{
                          'Content-Type': 'application/json',

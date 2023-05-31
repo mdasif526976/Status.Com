@@ -1,19 +1,27 @@
+import React, { useContext } from 'react';
+import MobileNav from '../MobileNav/MobileNav';
+import { UserContext } from '../Authprovider/Authprovider';
 import { Button } from '@material-tailwind/react';
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+	const {logOut} = useContext(UserContext);
 	return (
-		<div className='bg-[#A9DEF9] md:flex hidden  gap-14 justify-center items-center
+	    <div>
+			<div>
+			<MobileNav></MobileNav>
+			</div>
+			<div className=' bg-[#A9DEF9] md:flex hidden  gap-14 justify-center items-center
 		 h-[135px] w-full'>
 			<div className='flex gap-8 items-center'>
              <h3 className='w-[55px] mt-2 rounded h-[55px] text-3xl mr-[76px]'>Status.com</h3>
 			 <input className='p-3 rounded bg-white w-[625px]' type="text" />
 			</div>
-			<div className='flex gap-5 justify-left'>
+			<div className='flex gap-3 justify-left'>
 				<div className='flex gap-3 items-center'>
                    <img className='w-14 h-14 rounded' 
 				   src="https://source.unsplash.com/100x100/?portrait" alt="" />
-				   <p className='text-xl font-bold font-body'>@Larry Page</p>
+				   <p className=' font-bold font-body'>@Larry Page</p>
 				</div>
 				<button className='w-14 h-14 rounded bg-white pl-[11px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
@@ -28,7 +36,15 @@ const Navbar = () => {
   <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
 </svg>
 				</button>
+				<button onClick={()=> logOut()} className='w-14 h-14 rounded bg-white pl-[11px]'>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+				 fill="currentColor"  className="w-8 h-8 text-black">
+  <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
+</svg>
+				</button>
+				<Link to='/about' className='mt-2 '><Button>About me</Button></Link>
 			</div>
+		</div>
 		</div>
 	);
 };

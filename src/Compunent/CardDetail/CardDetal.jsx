@@ -7,7 +7,7 @@ const CardDetal = () => {
     const [post,setData] = useState('')
     const params = useParams();
    useEffect(()=>{
-    fetch(`http://localhost:4000/post/${params.id}`)
+    fetch(`https://status-bay-three.vercel.app/post/${params.id}`)
     .then(res=>res.json())
     .then(data=> setData(data))
    },[])
@@ -24,7 +24,7 @@ const CardDetal = () => {
        setCount(liked ? likeCount-1 : like+1)
     setlike(!liked)
     const count = {likeCount : likeCount};
-    fetch(`http://localhost:4000/like/${id}`,{
+    fetch(`https://status-bay-three.vercel.app/like/${id}`,{
        method:'PUT',
        headers:{
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const CardDetal = () => {
         const date = format(date)
         const commentDetail = {name:name,title:title,time:time,userImg:userImg,email:email};
         const newComment = [...comment,commentDetail];
-        fetch(`http://localhost:4000/comment/${commentId}`,{
+        fetch(`https://status-bay-three.vercel.app/comment/${commentId}`,{
                    method:'PUT',
                    headers:{
                         'Content-Type': 'application/json',

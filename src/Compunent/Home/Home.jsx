@@ -4,27 +4,32 @@ import Card from '../Card/Card';
 import Aside from '../Aside/Aside';
 import PostCard from '../PostCard/PostCard';
 import { UserContext } from '../Authprovider/Authprovider';
+import { useQuery } from 'react-query';
 
 const Home = () => {
-	const {a} = useContext(UserContext);
-	const [refetch,setrefetch] = ('')
-	const [loading,setloding] = useState(false)
-	console.log(a)
-	const [data,setData] = useState('');
-	useEffect(()=>{
-		setloding(true)
-		fetch('http://localhost:4000/posts')
-		.then(res=>res.json())
-		.then (data=>{
-			setloding(false)
-			setData(data)
-		})
-	},[])
-	if (loading) {
-		return;
+	const {logOut} = useContext(UserContext);
+	const {isLoading,refetch,data:posts=[]} = useQuery({
+		queryKey:['posts'],
+		queryFn: async()=>{
+		const res =  await fetch('https://status-bay-three.vercel.app/posts',{
+				headers:{
+					authorization:`bearer ${localStorage.getItem('accessToken')}`
+				}
+			})
+			if (res.status === 401 || res.status === 403) {
+				return logOut();
+				
+			}
+			const data = res.json();
+			return data; 
+		}
+	})
+	if (isLoading) {
+		return
 	}
+	console.log(posts)
+
 	
-	console.log(data)
     return (
         <div>
             <section className="">
@@ -36,14 +41,14 @@ const Home = () => {
 				</div>
 		{/* post scetion */}
 				<div className='col-span-6 mx-5 md:mr-[36px] mt-6'>
-					<PostCard></PostCard>
+					<PostCard refetch={refetch}></PostCard>
 			            <div className='flex flex-col gap-8'>
 							{
 								// data.forEach(element => {
 								// 	<Card key={element._id} data={element}></Card>
 								// })
-								data &&
-								data?.map((post)=><Card refetch={refetch} setrefetch={setrefetch} data={post} key={post._id}></Card>)
+								posts &&
+								posts?.map((post)=><Card refetch={refetch} data={post} key={post._id}></Card>)
 							}
 						</div>
 				</div>

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../Authprovider/Authprovider';
 
 const Sidebar = () => {
+  const {user,logOut} = useContext(UserContext);
+  const {displayName,photoURL} = user;
   return (
     <div className=''>
       <aside className="w-full p-6 sm:w-60 text-gray-900 bg-gray-100">
 	<nav className="space-y-8 text-sm ">
 		<div className="space-y-2 mx-10 mb-20">
 			<img className='rounded'
-       src="https://source.unsplash.com/100x100/?portrait" alt="" />
-      <p className='text-xl font-medium'>Ryan Dhall</p>
+       src={photoURL} alt="" />
+      <p className='text-xl font-medium'>{displayName}</p>
 		</div>
 		<div className="space-y-2">
 			<h2 className="text-[18px] font-semibold tracking-widest
@@ -80,8 +83,8 @@ const Sidebar = () => {
          <p className='text-xl font-medium'>Secure Data</p>
         </div>
 			</div>
-					<div className="flex py-3 flex-col space-y-1">
-				<div className='flex gap-3 items-center'>
+					<div  className="flex py-3 flex-col space-y-1">
+				<div onClick={()=> logOut()} className='flex gap-3 items-center'>
         <span className=''>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
           className="w-10 rounded bg-red-400
@@ -90,7 +93,7 @@ const Sidebar = () => {
 </svg>
 
         </span>
-         <p className='text-xl font-medium'>Profile</p>
+         <p className='text-xl font-medium'>Logout</p>
         </div>
 			</div>
 		</div>

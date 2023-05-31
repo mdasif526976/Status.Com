@@ -1,6 +1,7 @@
 import React, { useContext,createContext, useState, useEffect } from 'react';
 import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signOut, updateProfile} from 'firebase/auth'
 import app from '../../Firebase/Firebase.Config'
+import { toast } from 'react-toastify';
 const auth = getAuth(app)
 export const UserContext = React.createContext();
 const Authprovider = ({children}) => {
@@ -36,7 +37,9 @@ const Authprovider = ({children}) => {
     //logout
     const logOut=()=>{
         setLoading(true)
-      return signOut(auth)
+       signOut(auth).then(()=>{
+        toast.success('Logout successfully')
+       }).catch(err=>console.log(err))
     }
 
     // store user

@@ -5,8 +5,7 @@ import {  format, formatDistanceToNow, } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 const Card = (props) => {
-	const {refetch,setrefetch} = props;
-	console.log(refetch)
+	const refetch = props.refetch;
 	 let {name,title,userImg,_id,email,date,like,postImg,comment} = props.data;
 	 const time = format(new Date(),'yyyy-MM-dd');
 	 console.log(time)
@@ -21,7 +20,7 @@ const Card = (props) => {
 		setCount(liked ? likeCount-1 : like+1)
      setlike(!liked)
 	 const count = {likeCount : likeCount};
-	 fetch(`http://localhost:4000/like/${id}`,{
+	 fetch(`https://status-bay-three.vercel.app/like/${id}`,{
 		method:'PUT',
 		headers:{
 			 'Content-Type': 'application/json',
@@ -39,10 +38,9 @@ const Card = (props) => {
 		event.preventDefault();
          const form = event.target;
 		 const title = form.comment.value;
-		 const date = format(date)
 		 const commentDetail = {name:name,title:title,time:time,userImg:userImg,email:email};
 		 const newComment = [...comment,commentDetail];
-		 fetch(`http://localhost:4000/comment/${commentId}`,{
+		 fetch(`https://status-bay-three.vercel.app/comment/${commentId}`,{
                     method:'PUT',
                     headers:{
                          'Content-Type': 'application/json',
@@ -52,6 +50,7 @@ const Card = (props) => {
                 .then(data=>{
                     if (data.acknowledged) {
                   toast.success('comment successfully !!')
+	            refetch()
 				  form.reset()
                     }
                   console.log(data)
@@ -64,7 +63,7 @@ const Card = (props) => {
             <div className="flex flex-col h-92 p-6 space-y-6 
             overflow-hidden rounded-lg shadow-md bg-white  text-gray-900">
 	<div className="flex space-x-4">
-		<img alt="" src="https://source.unsplash.com/100x100/?portrait" 
+		<img alt="" src={userImg} 
         className="object-cover w-12 h-12 rounded-full shadow bg-gray-500" />
 		<div className="flex flex-col space-y-1">
 			<a rel="noopener noreferrer" href="#" className="text-sm font-semibold">
